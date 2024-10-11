@@ -2,7 +2,6 @@ import React from "react";
 import {default as PropTypes} from 'prop-types';
 import {
     $preliminaryStore,
-    eventsSaveFormDat
 } from "../storage";
 
 const buildPropTypes = originalPropTypes => ({
@@ -17,12 +16,18 @@ const buildPropTypes = originalPropTypes => ({
     })
 });
 
+const _store = {};
+
 const withStore = Component => {
     const originalComponentPropTypes = {
         ...Component.propTypes
     };
 
     Component.propTypes = buildPropTypes(originalComponentPropTypes);
+
+    $preliminaryStore.watch(values => {
+        _store.gitHubStars = values;
+    });
 
     return (class C extends React.Component {
         static displayName = `withStore(${Component.displayName || Component.name})`;
@@ -33,7 +38,7 @@ const withStore = Component => {
         constructor(props) {
             super(props);
             this.state = {
-                data: {}
+                store: _store
             };
         }
 
@@ -42,7 +47,7 @@ const withStore = Component => {
 
             return (
                 (<Component 
-                    formData={{formDataStore: {store: "store"}}}
+                    formData={{formDataStore: this.state.store}}
                     {...filteredProps} 
                 />)
             )

@@ -7,9 +7,13 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
+    "effector-react": "^23.2.1",
     "effector-storage": "^7.1.0",
+    "mobx": "^6.13.3",
+    "mobx-react": "^9.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-error-boundary": "^4.0.13",
     "react-scripts": "5.0.1",
     "stars": "file:",
     "web-vitals": "^2.1.4"
