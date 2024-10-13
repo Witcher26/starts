@@ -1,7 +1,7 @@
 import React from "react";
 import {default as PropTypes} from 'prop-types';
 import {
-    $preliminaryStore,
+    $gitHubStarsStore,
 } from "../storage";
 
 const buildPropTypes = originalPropTypes => ({
@@ -25,7 +25,7 @@ const withStore = Component => {
 
     Component.propTypes = buildPropTypes(originalComponentPropTypes);
 
-    $preliminaryStore.watch(values => {
+    $gitHubStarsStore.watch(values => {
         _store.gitHubStars = values;
     });
 

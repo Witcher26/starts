@@ -8,15 +8,15 @@ const eventsSaveFormData = [
     savePreliminaryData
 ];
 
-const $preliminaryStore = createStore({});
+const $gitHubStarsStore = createStore({});
 
-$preliminaryStore
+$gitHubStarsStore
     .on(savePreliminaryData, (_, value) => ({
         value
     }));
 
 export {
     eventsSaveFormData,
-    $preliminaryStore,
+    $gitHubStarsStore,
     GlobalComponent
 }
