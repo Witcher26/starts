@@ -30,6 +30,10 @@ import {
     GET_FEED_SUCCESS
 } from "../redux/thunks.js";
 
+import {
+    Registration
+} from "../redux/Registration.jsx";
+
 const reduxStore = createStore(rootReducer);
 
 const actionKeys = {
@@ -121,6 +125,7 @@ function DefaultLayout() {
                             <MainMenu authContext={authContext}/>
                         )}
                     </AuthProvider>
+                    <Registration/>
                     <Footer
                         keyComponent="global-footer"
                         requiredComponent={true}

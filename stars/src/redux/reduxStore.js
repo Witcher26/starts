@@ -5,7 +5,10 @@
     GET_FEED,
     GET_FEED_FAILED,
     GET_FEED_SUCCESS
- } from "../redux/thunks.js"
+ } from "../redux/thunks.js";
+ import {
+    participantRegistrationReducer
+ } from "../redux/reducers.js";
 
  const GET_GITHUB_DATA_ACTION = "GET_GITHUB_DATA_ACTION";
 
@@ -80,6 +83,7 @@
  const rootReducer = combineReducers({
     gitHubData,
     someReducer,
+    participantRegistration: participantRegistrationReducer,
     feed: feedReducer
  });
 
