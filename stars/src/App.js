@@ -10,6 +10,7 @@ import { rootReducer } from './redux/reduxStore';
 import {
     DefaultLayout
 } from "./components";
+import {thunk} from "redux-thunk";
 
 // const reduxStore = createStore(rootReducer);
 // const reduxStore = configureStore({reducer: rootReducer});
@@ -27,7 +28,7 @@ const logger2 = _store => next => action => {
 }
 
 // const enhancer = applyMiddleware(logger1, logger2)
-const enhancer = applyMiddleware(logger1, logger2)
+const enhancer = applyMiddleware(thunk)
 
 const reduxStore = configureStore({
     reducer: rootReducer,

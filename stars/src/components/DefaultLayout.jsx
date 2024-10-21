@@ -24,6 +24,12 @@ import {
     rootReducer
 } from "../redux/reduxStore.js";
 
+import {
+    GET_FEED,
+    GET_FEED_FAILED,
+    GET_FEED_SUCCESS
+} from "../redux/thunks.js";
+
 const reduxStore = createStore(rootReducer);
 
 const actionKeys = {
@@ -45,9 +51,45 @@ const AppContext = React.createContext({
     name: errorMessage
 });
 
-export function useAppContext() {
+function useAppContext() {
     return useContext(AppContext);
 };
+
+function getFeed() {
+    // Воспользуемся первым аргументом из усилителя redux-thunk - dispatch
+  return function(dispatch) {
+        // Проставим флаг в хранилище о том, что мы начали выполнять запрос
+        // Это нужно, чтоб отрисовать в интерфейсе лоудер или заблокировать 
+        // ввод на время выполнения запроса
+    dispatch({
+      type: GET_FEED
+    })
+        // Запрашиваем данные у сервера
+    Promise.all([action(actionKeys.stars)])
+        .then(([res]) => {
+        console.log("res.request.status :", res)
+      if (res && res.request.status === 200) {
+    
+                // В случае успешного получения данных вызываем экшен
+                // для записи полученных данных в хранилище
+        dispatch({
+          type: GET_FEED_SUCCESS,
+          feed: res.data
+        })
+      } else {
+                // Если произошла ошибка, отправляем соотвтествующий экшен
+        dispatch({
+          type: GET_FEED_FAILED
+        })
+      }
+    }).catch( err => {
+            // Если сервер не вернул данных, также отправляем экшен об ошибке
+            dispatch({
+                type: GET_FEED_FAILED
+            })
+        })
+  }
+} 
 
 function DefaultLayout() {
     const [_, setData] = useState([]);
@@ -55,11 +97,16 @@ function DefaultLayout() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log("диспатч 1")
+        dispatch(getFeed())
+    }, [])
+
+    useEffect(() => {
         Promise.all([action(actionKeys.stars)])
             .then(([response]) => {
                 setData(response.data.items);
                 savePreliminaryDataFx(response.data.items);
-                dispatch({type: GET_GITHUB_DATA_ACTION, payload: response.data.items})
+                dispatch({type: GET_GITHUB_DATA_ACTION, payload: response.data.items});
             })
             .catch(console.error)
             .finally(() => null)
@@ -81,6 +128,10 @@ function DefaultLayout() {
                 </AppContext.Provider>
         </ErrorBoundaryHandler>
     );
+}
+
+export {
+    useAppContext
 }
 
 export default DefaultLayout
