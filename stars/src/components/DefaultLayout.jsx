@@ -8,7 +8,8 @@ import {
     Header,
     MainMenu,
     AuthProvider,
-    ErrorBoundaryHandler
+    ErrorBoundaryHandler,
+    RegistrationNew
 } from './index';
 
 import { GlobalComponent as Footer} from '../storage';
@@ -120,6 +121,7 @@ function DefaultLayout() {
         <ErrorBoundaryHandler>
                 <AppContext.Provider value ={{title: Message.title, name: Message.name}}>
                     <Header/>
+                    <RegistrationNew/>
                     <AuthProvider>
                         {({authContext}) => (
                             <MainMenu authContext={authContext}/>

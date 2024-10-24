@@ -9,6 +9,10 @@
  import {
     participantRegistrationReducer
  } from "../redux/reducers.js";
+//  formReducer
+import {
+    formReducer
+} from "../components/RegistrationNew.jsx";
 
  const GET_GITHUB_DATA_ACTION = "GET_GITHUB_DATA_ACTION";
 
@@ -78,13 +82,14 @@
           }
       }
   }
- 
+
 
  const rootReducer = combineReducers({
     gitHubData,
     someReducer,
     participantRegistration: participantRegistrationReducer,
-    feed: feedReducer
+    feed: feedReducer,
+    registrationNew: formReducer
  });
 
 //  const reduxStore = createStore(rootReducer);
